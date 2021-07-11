@@ -209,3 +209,32 @@ class API():
                 }
         result = self._make_request(request)
         return result.json()
+
+    def member_calling_classes(self, member_legacy_id):
+        """
+        Obtain calling and class information for a member
+        """
+        _LOGGER.info("Getting member Calling & Classes")
+        request = {
+                'url': 'https://{}/records/member-profile/callings-and-classes/{}'.format(LCR_DOMAIN, member_legacy_id),
+                'params': {
+                    'lang': 'eng'
+                    }
+                }
+        result = self._make_request(request)
+        return result.json()
+
+    def member_attendance(self, member_uuid):
+        """
+        Retrieve quorum and class attendance information for a member
+        """
+        _LOGGER.info("Getting member attendance data")
+        request = {
+                'url': 'https://{}/services/umlu/v1/class-and-quorum/attendance/details/{}'.format(LCR_DOMAIN, member_uuid),
+                'params': {
+                    'lang': 'eng',
+                    'unitNumber': self.unit_number
+                    }
+                }
+        result = self._make_request(request)
+        return result.json()
