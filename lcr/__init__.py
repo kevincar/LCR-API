@@ -238,3 +238,20 @@ class API():
                 }
         result = self._make_request(request)
         return result.json()
+
+    def member_ministering(self, household_head_id, member_legacy_id):
+        """
+        Retrive information about a member's ministering assignment
+        """
+        _LOGGER.info(f"Getting member {member_legacy_id}'s ministering information")
+        request = {
+                'url': 'https://{}/services/umlu/v1/ministering/member-profile-ministering'.format(LCR_DOMAIN),
+                'params': {
+                    'hohId': household_head_id,
+                    'lang': 'eng',
+                    'legacyCmisId': member_legacy_id,
+                    'unitNumber': self.unit_number
+                    }
+                }
+        result = self._make_request(request)
+        return result.json()
